@@ -4,10 +4,16 @@ import webbrowser
 #-----------------------------------------------
 #------------------Fonction---------------------
 
+def open_pokepedia_enter(event):
+    webbrowser.open_new_tab("https://www.pokepedia.fr/" + saisie_fr.get())
+
 def open_pokepedia():
     webbrowser.open_new_tab("https://www.pokepedia.fr/" + saisie_fr.get())
 
 def open_bulbapedia():
+    webbrowser.open_new_tab("https://bulbapedia.bulbagarden.net/wiki/" + saisie_en.get())
+
+def open_bulbapedia_enter(event):
     webbrowser.open_new_tab("https://bulbapedia.bulbagarden.net/wiki/" + saisie_en.get())
 
 def open_pokemon_pp():
@@ -27,6 +33,7 @@ def open_atk_bb():
 
 def open_types_bb():
     webbrowser.open_new_tab("https://bulbapedia.bulbagarden.net/wiki/Type")
+    
 
 #-----------------------------------------------
 #------------------Var Tk-----------------------
@@ -36,10 +43,10 @@ window = Tk()
 #-----------------------------------------------
 #------------------Perso Window-----------------
 
-window.title("Recherche page Pokémon V2")
+window.title("Recherche page Pokémon V3")
 window.geometry("720x600")
 window.minsize(720, 600)
-#window.maxsize(720, 600)
+window.maxsize(720, 600)
 window.iconbitmap("img/logo.ico")
 window.config(background='brown')
 
@@ -56,8 +63,10 @@ frame = Frame(
 
 quit = PhotoImage(file='img/deconnexion.png')
 search = PhotoImage(file='img/search.png')
-furret = PhotoImage(file='img/furret.png')
 bar_blue = PhotoImage(file='img/bar_blue.png')
+box_grey = PhotoImage(file='img/box_grey.png')
+pokemon = PhotoImage(file='img/pokemon.png')
+ball = PhotoImage(file='img/ball.png')
 
 #-----------------------------------------------
 #------------------Canvas-----------------------
@@ -76,15 +85,15 @@ canvas1 = Canvas(
 canvas1.create_image(
     100,
     20,
-    image=furret,
+    image=ball,
     anchor=NW
 )
 
-canvas1.create_text(
-    360,
-    60,
-    text="Recherche Pokémon",
-    font=("Arial", 30)
+canvas1.create_image(
+    30,
+    0,
+    image=pokemon,
+    anchor=NW
 )
 
 canvas1.create_image(
@@ -94,8 +103,15 @@ canvas1.create_image(
     image=bar_blue
 )
 
+canvas1.create_image(
+    30,
+    0,
+    anchor=NW,
+    image=box_grey    
+)
+
 #-----------------------------------------------
-#------------------Action-----------------------
+#-----------------Objets------------------------
 
 btn_quit = Button(
     window,
@@ -104,22 +120,29 @@ btn_quit = Button(
     borderwidth=0,
     command=window.quit
 )
+
 button_fr = Button(
     window,
     image=search,
+    bg='white',
+    activebackground='#8f8f8f',
     fg='brown',
     borderwidth=0,
-    command=open_pokepedia   
-)
+    command=open_pokepedia
+    )
 
 saisie_fr = Entry(
     window,
-    font=("Arial", 20)
+    font=("Arial", 20),
+    borderwidth=0,
+    justify=CENTER
 )
+saisie_fr.bind('<KeyPress-Return>', open_pokepedia_enter)
 
 button_en = Button(
     window,
     image=search,
+    bg='white',
     fg='brown',
     borderwidth=0,
     command=open_bulbapedia
@@ -127,36 +150,39 @@ button_en = Button(
 
 saisie_en = Entry(
     window,
-    font=("Arial", 20)
+    font=("Arial", 20),
+    borderwidth=0,
+    justify=CENTER
 )
+saisie_en.bind('<KeyPress-Return>', open_bulbapedia_enter)
 
 #-----------------------------------------------
 #-----------------------------------------------
 
 canvas1.create_window(
-    480,
-    200,
+    494,
+    205,
     anchor=NW,
     window=button_fr
 )
 
 canvas1.create_window(
-    150,
-    200,
+    180,
+    202,
     anchor=NW,
     window=saisie_fr
 )
 
 canvas1.create_window(
-    480,
-    350,
+    494,
+    355,
     anchor=NW,
     window=button_en
 )
 
 canvas1.create_window(
-    150,
-    350,
+    180,
+    352,
     anchor=NW,
     window=saisie_en
 )
@@ -168,7 +194,7 @@ canvas1.create_window(
     window=btn_quit
 )
 #-----------------------------------------------
-#------------.pack and .pack--------------------
+#--------------------.pack----------------------
 
 canvas1.pack(fill=BOTH, expand=YES)
 frame.pack(expand=YES)
