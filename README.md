@@ -12,6 +12,6 @@ Ajouts:
 [+] Ajout du logo Pokémon
 [+] Ajout d'une nouvelle icone
 
-Retraits:
+Retrait:
 
 [-] Suppression du texte
